@@ -1,0 +1,37 @@
+
+#Question1
+```{r}
+ac_binom <- function(n, p, x){
+  prob <- 0
+  for(i in 0 : x){
+    prob <- prob + dbinom(i, n, p)
+  }
+  return(prob)
+}
+
+
+ac_binom(5,0.5,4)
+pbinom(4,5,0.5)
+```
+
+#Question2
+```{r}
+
+simu_power <- function(n, sd, mean, del, level, n_simu){
+#As we are assuming it follows a normal distribution, we stimulate data from a normal
+  
+sum(replicate(n_simu,
+          {y <- rnorm(n, mean, sd)
+           t.test(y, mu = mean + del)[[3]] <= level
+            
+          }))/n_simu
+  }
+
+
+
+simu_power(n = 30, sd = 1, mean =0, del = 0.5, level = 0.05, n_simu = 10000)
+power.t.test(n = 30, delta = 0.5, sd = 1, sig.level = 0.05, type = 'one.sample')
+
+
+```
+
